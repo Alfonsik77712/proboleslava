@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <title>Blackout + Zvuk</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #blackout {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      z-index: 9999;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <button onclick="goBlack()">Bodo zmackni me</button>
+  <div id="blackout"></div>
+  <audio id="sound" src="bodo.mp3"></audio>
+
+  <script>
+    function goBlack() {
+      // Переход в полноэкранный режим (если поддерживается)
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      }
+
+      // Включаем чёрный экран
+      document.getElementById("blackout").style.display = "block";
+
+      // Запуск звука
+      const audio = document.getElementById("sound");
+      audio.volume = 1.0;
+      audio.play().catch(err => {
+        alert("Nelze přehrát zvuk: " + err.message);
+      });
+    }
+  </script>
+
+</body>
+</html>
